@@ -10,8 +10,22 @@ export const navbarData: INavbarData[] = [
         label: 'Cursos',
         items: [
             {
-                routeLink: '/course-3',
+                routeLink: '/courses',
                 label: 'Cursos'
+            }
+        ]
+    },
+    {
+        routeLink: '',
+        label: 'administracion',
+        items: [
+            {
+                routeLink: '/categories',
+                label: 'Categorias'
+            },
+            {
+                routeLink: '/users',
+                label: 'Usuarios'
             }
         ]
     },

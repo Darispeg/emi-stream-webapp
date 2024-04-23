@@ -10,16 +10,19 @@ export const appRoutes: Route[] = [
       path: '',
       component: LayoutComponent,
       children: [
-          { 
-              path: 'home', loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule) 
-          }, 
-          { 
-              path: 'courses', loadChildren: () => import('./modules/courses/courses.module').then(m => m.CoursesModule) 
-          },
-          {
-              path: '**',
-              redirectTo: 'home'
-          }
+        { 
+            path: 'home', loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule) 
+        }, 
+        { 
+            path: 'courses', loadChildren: () => import('./modules/courses/courses.module').then(m => m.CoursesModule) 
+        },
+        { 
+            path: 'categories', loadChildren: () => import('./modules/category/categories.module').then(m => m.CategoriesModule) 
+        },
+        {
+            path: '**',
+            redirectTo: 'home'
+        }
       ]
   }
 ];
