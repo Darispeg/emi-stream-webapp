@@ -28,7 +28,15 @@
             <div class="col-span-12 xl:col-span-8">
                 <div class="course-detalis-wrapper mb-[30px]">
                     <div class="course-heading mb-[20px]">
-                        <h2>{{course?.title}}</h2>
+                        <div class="grid grid-cols-9 gap-1">
+                            <h2 class="col-span-7">{{course?.title}}</h2>
+                            <button (click)="editCourse()" mat-mini-fab matTooltip="editar curso" color="basic" class="mb-4 col-span-1">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button (click)="deleteCourse()" mat-mini-fab matTooltip="eliminar curso" color="warn" class="mb-4 col-span-1">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                        </div>
                         <div class="course-star">
                             <ul>
                                 <li><i class="fas fa-star"></i></li>
@@ -45,7 +53,7 @@
                             <ul>
                                 <li><i class="fal fa-star"></i></li>
                             </ul>
-                            <span>(254 reviews)</span>
+                            <span>(254 reseñas)</span>
                         </div>
                     </div>
                     <div class="course-detelis-meta">
@@ -156,16 +164,18 @@
                     <app-studentfeedback></app-studentfeedback>
                     <app-coursereview></app-coursereview>
                     <div class="course-review-btn">
-                        <a id="show-review-box" class="edu-btn" href="javascript:void(0)" (click)=writeReview()>Write a
-                            Review</a>
+                        <a id="show-review-box" class="edu-btn" href="javascript:void(0)" (click)=writeReview()>
+                            Escribe un comentario
+                        </a>
 
                         <div id="review-box" class="review-comment mt-[45px]" [class.d-block]="writeReviewActive">
                             <div class="comment-title mb-[20px]">
-                                <p>Your email address will not be published. Required fields are marked *
+                                <p>
+                                    Su dirección de correo electrónico no será publicada. Los campos obligatorios están marcados con *.
                                 </p>
                             </div>
                             <div class="comment-rating mb-[20px]">
-                                <span>Overall ratings</span>
+                                <span>Valoraciones generales</span>
                                 <ul>
                                     <li><a href="#"><i class="fas fa-star"></i></a></li>
                                     <li><a href="#"><i class="fas fa-star"></i></a></li>
@@ -178,22 +188,22 @@
                                 <form action="#">
                                     <div class="grid grid-cols-12 gap-x-[0px] sm:gap-x-[30px]">
                                         <div class="col-span-12">
-                                            <textarea placeholder="Your review"
+                                            <textarea placeholder="Escribe tu comentario"
                                                 class="comment-input comment-textarea mb-[20px]"></textarea>
                                         </div>
                                         <div class="col-span-12 xxl:col-span-6">
                                             <div class="comment-input mb-[20px]">
-                                                <input type="text" placeholder="Your Name">
+                                                <input type="text" placeholder="Ingrese su nombre">
                                             </div>
                                         </div>
                                         <div class="col-span-12 xxl:col-span-6">
                                             <div class="comment-input mb-[20px]">
-                                                <input type="email" placeholder="Your Email">
+                                                <input type="email" placeholder="Ingrese su email">
                                             </div>
                                         </div>
                                         <div class="col-span-12">
                                             <div class="comment-submit">
-                                                <button type="submit" class="edu-btn">Submit</button>
+                                                <button type="submit" class="edu-btn">Enviar</button>
                                             </div>
                                         </div>
                                     </div>

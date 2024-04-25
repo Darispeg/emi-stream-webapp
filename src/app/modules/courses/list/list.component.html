@@ -104,10 +104,10 @@
                                      <div class="cart-info-body">
                                          <span class="category-color category-color-5"><a [routerLink]="['/course-3']">{{course.category}}</a></span>
                                          <a [routerLink]="['/']">
-                                             <h3>{{course.level}}</h3>
+                                             <h3>{{getLevelViewValue(course.level)}}</h3>
                                          </a>
                                          <div class="cart-lavel">
-                                             <h5>Nivel: <span>{{course.level}}</span></h5>
+                                             <h5>Nivel: <span>{{getLevelViewValue(course.level)}}</span></h5>
                                              <p>{{course.description | truncate: 150}}</p>
                                          </div>
                                          <div class="info-cart-text">

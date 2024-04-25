@@ -19,6 +19,9 @@ export const appRoutes: Route[] = [
         { 
             path: 'categories', loadChildren: () => import('./modules/category/categories.module').then(m => m.CategoriesModule) 
         },
+        { 
+            path: 'users', loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule) 
+        },
         {
             path: '**',
             redirectTo: 'home'

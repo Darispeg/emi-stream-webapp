@@ -170,4 +170,15 @@ export class CoursesService
             })
         );
     }
+
+    deleteCourse(key : string) : Observable<string> {
+        return this._httpClient.delete(`${environment.APIurl}/courses/${key}`, 
+            { responseType: 'text' }
+        ).pipe(
+            catchError(error => {
+                console.error("Error eliminando el curso: ", error);
+                return throwError(error);
+            })
+        );
+    }
 }

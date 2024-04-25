@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { CoursesService } from "../course.service";
 import { Course, CourseStatus, Level, Topic } from "../course.types";
-import { Subject, takeUntil } from "rxjs";
+import { Subject, catchError, takeUntil, throwError } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { VideoPlayerDialogComponent } from "../video-player/video-player.component";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
     selector: 'courses-detail',
@@ -36,6 +37,8 @@ export class CoursesDetailsComponent implements OnInit, OnDestroy {
         private _coursesService : CoursesService,
         private _dialog: MatDialog,
         private _changeDetectorRef: ChangeDetectorRef,
+        private _router: Router,
+        private _activatedRoute: ActivatedRoute
     ){}
 
     ngOnInit(): void {
@@ -83,5 +86,24 @@ export class CoursesDetailsComponent implements OnInit, OnDestroy {
             height: '750px',
             width: '750px',
         });
+    }
+
+    deleteCourse() {
+        const key = this.course?.id ?? '';
+        this._coursesService.deleteCourse(key)
+            .pipe(
+                catchError((error) => {
+                    return throwError(error);
+                })
+            )
+            .subscribe(() => {
+                this._router.navigate(['../../'], { relativeTo: this._activatedRoute });
+                this._coursesService.getCourses().subscribe();
+            });
+        this._changeDetectorRef.markForCheck();
+    }
+
+    editCourse() {
+
     }
 }
