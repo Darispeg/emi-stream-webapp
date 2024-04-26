@@ -146,4 +146,19 @@ export class UsersDetailsComponent implements OnInit, OnDestroy
                 });
         }
     }
+
+    deleteUser() {
+        const key = this.user?.id ?? '';
+        this._userService.deleteUser(key)
+            .pipe(
+                catchError((error) => {
+                    return throwError(error);
+                })
+            )
+            .subscribe(() => {
+                this._router.navigate(['../'], { relativeTo: this._activatedRoute });
+                this._userService.getUsers().subscribe();
+            });
+        this._changeDetectorRef.markForCheck();
+    }
 }

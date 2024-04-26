@@ -37,54 +37,38 @@
                 <!-- Name -->
                 <div class="mt-3 text-4xl font-bold truncate">{{user.fullName}}</div>
 
-                <!-- Status -->
-                <div class="flex flex-wrap items-center">
-                    <div>
-                        <div class="flex items-center mt-1.5 px-4 leading-9 rounded-full cursor-pointer" [ngClass]="{'text-green-800 bg-green-200 dark:text-green-100 dark:bg-green-500': (user.status|lowercase) === 'active',
-                                            'text-red-800 bg-red-200 dark:text-red-100 dark:bg-red-500': (user.status|lowercase) === 'inactive'}">
-
-                            <!-- Activo -->
-                            <ng-container *ngIf="(user.status|lowercase) === 'active'">
-                                <mat-icon class="icon-size-5 text-current">check</mat-icon>
-                                <span class="ml-2 mr-1 text-md font-medium">Activo</span>
-                            </ng-container>
-
-                            <!-- Inactivo -->
-                            <ng-container *ngIf="(user.status|lowercase) === 'inactive'">
-                                <mat-icon class="icon-size-4 text-current">clear</mat-icon>
-                                <span class="ml-2 mr-1 text-md font-medium">Inactivo</span>
-                            </ng-container>
-                        </div>
+                <div class="grid grid-cols-2">
+                    <div class="flex sm:items-center mt-8">
+                        <mat-icon class="icon-size-5">person</mat-icon>
+                        <div class="ml-6 leading-6">Nombre:</div>
                     </div>
-                </div>
-
-                <div class="flex flex-col mt-4 pt-6 border-t space-y-8">
-                    <!-- Fullname -->
-                    <div class="flex sm:items-center">
-                        <mat-icon>person</mat-icon>
-                        <div class="ml-6 leading-6">{{user.fullName}}</div>
-                    </div>
-                    <!-- Username -->
-                    <div class="flex sm:items-center">
-                        <mat-icon>perm_contact_calendar</mat-icon>
-                        <div class="ml-6 leading-6">{{user.username}}</div>
+                    <div class="flex sm:items-center mt-8">
+                        <div class="font-semibold text-secondary">{{user.fullName}}</div>
                     </div>
 
-                    <!-- Phone -->
-                    <ng-container *ngIf="user.phone">
-                        <div class="flex">
-                            <mat-icon>contact_phone</mat-icon>
-                            <div class="max-w-none ml-6 prose prose-sm">{{user.phone}}</div>
-                        </div>
-                    </ng-container>
+                    <div class="flex sm:items-center mt-8">
+                        <mat-icon class="icon-size-5">perm_contact_calendar</mat-icon>
+                        <div class="ml-6 leading-6">Nombre de usuario:</div>
+                    </div>
+                    <div class="flex sm:items-center mt-8">
+                        <div class="font-semibold text-secondary">{{user.username}}</div>
+                    </div>
 
-                    <!-- Email -->
-                    <ng-container *ngIf="user.email">
-                        <div class="flex">
-                            <mat-icon>contact_mail</mat-icon>
-                            <div class="max-w-none ml-6 prose prose-sm">{{user.email}}</div>
-                        </div>
-                    </ng-container>
+                    <div class="flex sm:items-center mt-8">
+                        <mat-icon class="icon-size-5">contact_phone</mat-icon>
+                        <div class="ml-6 leading-6">Telefono:</div>
+                    </div>
+                    <div class="flex sm:items-center mt-8">
+                        <div class="font-semibold text-secondary">{{user.phone}}</div>
+                    </div>
+
+                    <div class="flex sm:items-center mt-8">
+                        <mat-icon class="icon-size-5">contact_mail</mat-icon>
+                        <div class="ml-6 leading-6">Correo electronico:</div>
+                    </div>
+                    <div class="flex sm:items-center mt-8">
+                        <div class="font-semibold text-secondary">{{user.email}}</div>
+                    </div>
 
                     <!-- created Date -->
                     <ng-container *ngIf="user.createdDate">
@@ -93,6 +77,28 @@
                             <div class="max-w-none ml-6 prose prose-sm">{{user.createdDate | date:'mediumDate'}}</div>
                         </div>
                     </ng-container>
+
+                    <div class="flex sm:items-center mt-8">
+                        <mat-icon class="icon-size-5">info</mat-icon>
+                        <div class="ml-6 leading-6">Estado del usuario:</div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="flex items-center px-4 mt-6 leading-9 rounded-full cursor-pointer w-1/2" [ngClass]="{'text-green-800 bg-green-200 dark:text-green-100 dark:bg-green-500': (user.status|lowercase) === 'active',
+                                        'text-red-800 bg-red-200 dark:text-red-100 dark:bg-red-500': (user.status|lowercase) === 'inactive'}">
+
+                        <!-- Activo -->
+                        <ng-container *ngIf="(user.status|lowercase) === 'active'">
+                            <mat-icon class="icon-size-5 text-current">check</mat-icon>
+                            <span class="ml-2 mr-1 text-md font-medium">Activo</span>
+                        </ng-container>
+
+                        <!-- Inactivo -->
+                        <ng-container *ngIf="(user.status|lowercase) === 'inactive'">
+                            <mat-icon class="icon-size-4 text-current">clear</mat-icon>
+                            <span class="ml-2 mr-1 text-md font-medium">Inactivo</span>
+                        </ng-container>
+                    </div>
                 </div>
             </div>
         </div>

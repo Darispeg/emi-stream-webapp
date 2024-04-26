@@ -28,6 +28,7 @@ import { CampusSectionComponent } from "./campussection/campussection.component"
 import { CountersectionComponent } from "./countersection/countersection.component";
 import { HomeComponent } from "./home.component";
 import { homeRoutes } from "./home.routing";
+import { TruncatePipe } from "src/app/shared/pipes/TruncatePipe";
 
 @NgModule({
     declarations : [
@@ -38,7 +39,9 @@ import { homeRoutes } from "./home.routing";
         CategoriesComponent,
         AcademiccourseComponent,
         CampusSectionComponent,
-        CountersectionComponent
+        CountersectionComponent,
+        
+        TruncatePipe
     ],
     imports : [
         CommonModule,

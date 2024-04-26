@@ -104,6 +104,6 @@ export class CoursesDetailsComponent implements OnInit, OnDestroy {
     }
 
     editCourse() {
-
+        this._router.navigate(['../create-edit', this.course?.id], { relativeTo: this._activatedRoute });
     }
 }

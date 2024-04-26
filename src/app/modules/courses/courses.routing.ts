@@ -4,6 +4,7 @@ import { CoursesListComponent } from "./list/list.component";
 import { CoursesDetailsComponent } from "./details/details.component";
 import { CoursesCreateOrEditDetailsComponent } from "./create-edit/course-edit.component";
 import { CoursesCourseResolver, CoursesResolver } from "./course.resolver";
+import { CategoriesResolver } from "../category/category.resolver";
 
 export const coursesRoutes : Route[] = [
     {
@@ -14,20 +15,25 @@ export const coursesRoutes : Route[] = [
                 path: '',
                 component: CoursesListComponent,
                 resolve : {
-                    courses : CoursesResolver
+                    courses : CoursesResolver,
+                    categories : CategoriesResolver
                 }
             },
             {
-                path: 'create-edit',
-                component: CoursesCreateOrEditDetailsComponent
-              },
-              {
+                path: 'create-edit/:id',
+                component: CoursesCreateOrEditDetailsComponent,
+                resolve : {
+                    course: CoursesCourseResolver,
+                    categories : CategoriesResolver
+                }
+            },
+            {
                 path: 'detail/:id',
                 component: CoursesDetailsComponent,
                 resolve : {
                     courses : CoursesCourseResolver
                 }
-              }
-          ]
+            }
+        ]
     }
 ]

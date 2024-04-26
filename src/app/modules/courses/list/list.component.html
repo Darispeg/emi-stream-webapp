@@ -39,7 +39,7 @@
           </div>
        </div>
        <div class="col-span-3 md:col-span-1 lg:col-span-4 my-auto text-right">
-          <button [routerLink]="['../courses/create-edit']" class="view-details-btn w-full md:w-1/2 lg:w-1/4">
+          <button [routerLink]="['../courses/create-edit/000000000000']" class="view-details-btn w-full md:w-1/2 lg:w-1/4">
              <i class="fa fa-plus" aria-hidden="true"></i>
              <span class="ml-3">CREAR</span>
           </button>
@@ -58,12 +58,18 @@
                    <div class="course-sidebar-info" [class.content-hidden]="showCategoryActive">
                       <h3 class="drop-btn" (click)="showCategory()">Categorias</h3>
                       <ul>
-                         <li>
-                            <div class="course-sidebar-list">
-                               <input class="edu-check-box" type="checkbox" id="e-bus">
-                               <label class="edu-check-label" for="e-bus">Ingenieria de Sistemas</label>
-                            </div>
-                         </li>
+                        <ng-container *ngIf="categories$ | async as categories">
+                           <ng-container *ngIf="categories.length; else empty">
+                               <ng-container *ngFor="let category of categories;">
+                                 <li>
+                                    <div class="course-sidebar-list">
+                                       <input class="edu-check-box" type="checkbox" id="e-bus">
+                                       <label class="edu-check-label" for="e-bus">{{category.title}}</label>
+                                    </div>
+                                 </li>
+                              </ng-container>
+                           </ng-container>
+                        </ng-container>
                       </ul>
                    </div>
                 </div>

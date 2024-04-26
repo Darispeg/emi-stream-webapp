@@ -12,33 +12,46 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
-
-
+import {MatListModule} from '@angular/material/list';
 import { ListCategoryComponent } from './list-category/list-category.component';
 import { DetailsCategoryComponent } from './details-category/details-category.component';
 import { categoryRoute } from "./category.routing";
+import { CategoryComponent } from "./category.component";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatRippleModule } from "@angular/material/core";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { TruncatePipe } from "src/app/shared/pipes/TruncatePipe";
 
 @NgModule({
     declarations : [
+      CategoryComponent,
+      ListCategoryComponent,
+      DetailsCategoryComponent,
 
-    
-    ListCategoryComponent,
-           DetailsCategoryComponent
+      TruncatePipe
   ],
     imports : [
       CommonModule,
-      FormsModule,
       RouterModule.forChild(categoryRoute),
-      ReactiveFormsModule,
       MatButtonModule,
+      MatCheckboxModule,
       MatDividerModule,
       MatFormFieldModule,
       MatIconModule,
       MatInputModule,
       MatMenuModule,
-      MatPaginatorModule,
+      MatProgressBarModule,
+      MatRippleModule,
       MatSelectModule,
       MatSidenavModule,
+      MatTooltipModule,
+      MatSnackBarModule,
+      MatPaginatorModule,
+      FormsModule,
+      ReactiveFormsModule,
+      MatListModule
     ],
     exports : [
 

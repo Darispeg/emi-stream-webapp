@@ -209,10 +209,19 @@
                                         </mat-form-field>
                                     </li>
                                     <li>
-                                        <mat-form-field class="flex-auto w-full max-w-24">
+                                        <mat-form-field class="w-full">
                                             <mat-label>Categoria</mat-label>
-                                            <mat-icon matPrefix class="hidden sm:flex icon-size-5">collections_bookmark</mat-icon>
-                                            <input matInput [formControlName]="'category'" placeholder="Ingrese el nivel del curso" [spellcheck]="false">
+                                            <mat-icon matPrefix class="hidden sm:flex icon-size-5">school</mat-icon>
+                                            <mat-select [formControlName]="'category'" #categorySelector>
+                                                <mat-select-trigger>
+                                                    <span class="sm:mx-0.5 font-medium text-default">{{categorySelector.value}}</span>
+                                                </mat-select-trigger>
+                                                <ng-container *ngFor="let category of categories; trackBy: trackByFn">
+                                                    <mat-option value="{{category.title}}">
+                                                        <span class="ml-2 font-medium">{{category.title}}</span>
+                                                    </mat-option>
+                                                </ng-container>
+                                            </mat-select>
                                         </mat-form-field>
                                     </li>
                                     <li>
@@ -246,9 +255,6 @@
             </div>
             <div class="text-center">
                 <button mat-fab extended class="mx-10" [disabled]="courseForm.invalid" color="primary" (click)="saveCourse()">Guardar</button>
-                <!-- <ng-container *ngIf="isUploading">
-                    <div class="w-7 h-7 rounded-full animate-spin border-4 border-dashed border-primary-800 border-t-transparent"></div>
-                </ng-container> -->
                 <button mat-fab extended class="mx-10" color="warn" (click)="closeEditMode()">Cancelar</button>
             </div>
         </form>

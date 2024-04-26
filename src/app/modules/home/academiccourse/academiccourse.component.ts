@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Course } from '../../courses/course.types';
+import { CoursesService } from '../../courses/course.service';
 
 @Component({
   selector: 'app-academiccourse',
@@ -8,9 +11,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class AcademiccourseComponent implements OnInit {
 
-  constructor() { }
+  courses$!: Observable<Course[]>
+  
+  constructor(
+    private _coursesService: CoursesService
+  ) { }
 
   ngOnInit(): void {
+    this.courses$ = this._coursesService.courses$;
   }
-
 }

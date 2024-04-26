@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UploadedVideoData } from "../upload/upload-video.types";
 import { CoursesService } from "../course.service";
 import { catchError, finalize, throwError } from "rxjs";
+import { Category } from "../../category/category.type";
+import { CategoryService } from "../../category/category.service";
 
 @Component({
     selector: 'courses-edit',
@@ -21,6 +23,7 @@ export class CoursesCreateOrEditDetailsComponent implements OnInit {
     isThumbnailUpload = false;
     isThumbnailLoading = false;
     thumbnailUrl: string = "";
+    categories: Category[] = [];
 
     statusList: CourseStatus[] = [
       {value: 'PUBLIC', viewValue: 'PUBLICO', icon: 'public'},
@@ -58,10 +61,16 @@ export class CoursesCreateOrEditDetailsComponent implements OnInit {
         private _courseService: CoursesService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _formBuilder: FormBuilder,
-        private _dialog: MatDialog
+        private _dialog: MatDialog,
+        private _categoryService: CategoryService
     ){}
 
     ngOnInit(): void {
+        this._categoryService.categories$
+          .subscribe((categories: Category[]) =>{
+            this.categories = categories;
+          })
+
         this.courseForm = this._formBuilder.group({
             id: [''],
             title: ['', [Validators.required]],

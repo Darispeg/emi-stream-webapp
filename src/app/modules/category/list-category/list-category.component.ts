@@ -1,84 +1,94 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { UntypedFormControl } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Observable, Subject, combineLatest, combineLatestAll, concat, debounceTime, forkJoin, map, of, switchMap, takeUntil } from "rxjs";
+import { Observable, Subject, filter, fromEvent, takeUntil } from "rxjs";
 
-import { MatPaginator } from "@angular/material/paginator";
 import { MatDrawer } from "@angular/material/sidenav";
 import { CategoryService } from "../category.service";
 import { Category } from "../category.type";
+import { DOCUMENT } from "@angular/common";
 
 @Component({
-  selector: 'app-list-category',
-  templateUrl: './list-category.component.html',
-  styleUrls: ['./list-category.component.scss']
+    selector       : 'areas-list',
+    templateUrl    : './list-category.component.html',
+    encapsulation  : ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListCategoryComponent {
+export class ListCategoryComponent implements OnInit, OnDestroy 
+{
+
+    @ViewChild('matDrawer', { static: true }) matDrawer!: MatDrawer;
+
+    drawerMode!: 'side' | 'over';
+    selectedCategory!: Category | null;
+    totalCount: number = 0;
+    searchInputControl: UntypedFormControl = new UntypedFormControl();
+    categories$!: Observable<Category[]>
+
+    private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    constructor(
+        private _activatedRoute: ActivatedRoute,
+        private _changeDetectorRef: ChangeDetectorRef,
+        @Inject(DOCUMENT) private _document: any,
+        private _router: Router,
+        private _categoryService: CategoryService,
+    ) { }
+
+    ngOnInit(): void {
+
+        this.categories$ = this._categoryService.categories$;
+
+        this._categoryService.categories$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((categories) => {
+                console.log(categories);
+                this.totalCount = categories.length;
+            });
+        
+        this._categoryService.category$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((category: Category | null) => {
+                this.selectedCategory = category;
+                this._changeDetectorRef.markForCheck();
+            });
+
+        this.matDrawer.openedChange.subscribe((opened) => {
+            if (!opened) {
+                this.selectedCategory = null;
+                this._changeDetectorRef.markForCheck();
+            }
+        });
+
+        fromEvent<KeyboardEvent>(document, 'keydown')
+            .pipe(
+                takeUntil(this._unsubscribeAll),
+                filter(event =>
+                    (event.ctrlKey || event.metaKey) && // Ctrl or Cmd key
+                    event.key === '/' // '/' key
+                )
+            )
+            .subscribe(() => { });
+    }
 
 
-  private _unsubscribeAll: Subject<any> = new Subject<any>();
+    ngOnDestroy(): void {
+        this._unsubscribeAll.next(null);
+        this._unsubscribeAll.complete();
+    }
 
-  searchInputControl: UntypedFormControl = new UntypedFormControl();
-  categories$!: Observable<Category[]>
-  /**
-   * Constructor
-   */
-  constructor(
-      private _activatedRoute: ActivatedRoute,
-      private _changeDetectorRef: ChangeDetectorRef,
-      private _router: Router,
-      private _categoryService: CategoryService,
-  ) { }
+    onBackdropClicked(): void {
+        this._router.navigate(['./'], { relativeTo: this._activatedRoute });
+        this._changeDetectorRef.markForCheck();
+    }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
+    trackByFn(index: number, item: any): any {
+        return item.key || index;
+    }
 
-  /**
-   * On init
-   */
-  ngOnInit(): void {
-    console.log("Lista de Cursos");
-
-    this.categories$ = this._categoryService.categories$;
-
-    this.categories$.subscribe((response) => {
-      console.log(response);
-    })
-  }
-
-
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void {
-      // Unsubscribe from all subscriptions
-      this._unsubscribeAll.next(null);
-      this._unsubscribeAll.complete();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On backdrop clicked
-   */
-  onBackdropClicked(): void {
-      // Go back to the list
-      this._router.navigate(['./'], { relativeTo: this._activatedRoute });
-
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-  }
-
-  /**
-   * Track by function for ngFor loops
-   *
-   * @param index
-   * @param item
-   */
-  trackByFn(index: number, item: any): any {
-      return item.key || index;
-  }
+    createCategory(): void
+    {
+        this._router.navigate(['./000000000000'], {relativeTo: this._activatedRoute});
+        this._changeDetectorRef.markForCheck();
+    }
 }

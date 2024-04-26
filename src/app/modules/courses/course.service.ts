@@ -13,7 +13,7 @@ export class CoursesService
     private _course: BehaviorSubject<Course | null> = new BehaviorSubject<Course | null>(null);
     private _courses: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
 
-    private _new:string = '00000000-0000-0000-0000-000000000000';
+    private _new:string = '000000000000';
     
     constructor(private _httpClient: HttpClient){}
 
