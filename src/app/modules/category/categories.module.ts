@@ -22,15 +22,12 @@ import { MatRippleModule } from "@angular/material/core";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { TruncatePipe } from "src/app/shared/pipes/TruncatePipe";
 
 @NgModule({
     declarations : [
       CategoryComponent,
       ListCategoryComponent,
-      DetailsCategoryComponent,
-
-      TruncatePipe
+      DetailsCategoryComponent
   ],
     imports : [
       CommonModule,

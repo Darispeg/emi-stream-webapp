@@ -21,7 +21,7 @@ const routerConfig: ExtraOptions = {
     MatPaginatorModule,
     MatIconModule,
     // Layout module of your application
-    LayoutModule,
+    LayoutModule
   ],
   declarations: [
     AppComponent
